@@ -41,4 +41,10 @@ OES/
 
 ## Status
 
-Scaffolding stage — tech stack to be confirmed. Nothing built yet.
+Building. Foundation scaffold (F1) complete; stack confirmed.
+
+## Contributing
+
+New here? Start with **[docs/onboarding.md](docs/onboarding.md)** — access, local setup,
+the agent workflow, and how to pick up a task. Roadmap: [docs/plan.md](docs/plan.md) and
+[docs/backlog.md](docs/backlog.md).
