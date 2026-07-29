@@ -38,3 +38,7 @@ Thumbs.db
 # Data — seeded data only; keep mock, ignore large/real
 data/**/*.tmp
 *.xlsx
+
+# Compiled Bicep output
+infra/*.json
+!infra/main.parameters.json

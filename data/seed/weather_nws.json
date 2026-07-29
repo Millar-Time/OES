@@ -2,7 +2,7 @@
   "_note": "SYNTHETIC seeded NWS-style payload for the golden-path incident.",
   "incident_id": "INC-2026-0729-0142",
   "issued_utc": "2026-07-29T15:00:00Z",
-  "office": "NWS Bay Area (mock)",
+  "office": "NWS (mock) — Justice County / Region II",
   "red_flag_warning": {
     "active": true,
     "headline": "Red Flag Warning — strong offshore winds and low humidity",

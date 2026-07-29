@@ -1,18 +1,18 @@
 {
-  "_note": "SYNTHETIC resource inventory across Mutual Aid Region II operational areas.",
+  "_note": "SYNTHETIC resource inventory across Mutual Aid Region II operational areas (Justice, Liberty, Union). See docs/scenario.md.",
   "as_of_utc": "2026-07-29T18:30:00Z",
   "resources": [
-    { "id": "E-2611", "type": "engine", "engine_type": 3, "staffing": 3, "oa": "SNO", "home_unit": "Sonoma Valley FPD", "region": "II", "lat": 38.29, "lon": -122.46, "status": "available", "readiness_min": 5 },
-    { "id": "E-2614", "type": "engine", "engine_type": 1, "staffing": 4, "oa": "SNO", "home_unit": "Santa Rosa FD", "region": "II", "lat": 38.44, "lon": -122.71, "status": "available", "readiness_min": 8 },
-    { "id": "E-2622", "type": "engine", "engine_type": 3, "staffing": 3, "oa": "SNO", "home_unit": "Healdsburg FD", "region": "II", "lat": 38.61, "lon": -122.87, "status": "available", "readiness_min": 6 },
-    { "id": "E-2631", "type": "engine", "engine_type": 3, "staffing": 3, "oa": "NAP", "home_unit": "Napa County FD", "region": "II", "lat": 38.30, "lon": -122.29, "status": "available", "readiness_min": 10 },
-    { "id": "E-2634", "type": "engine", "engine_type": 6, "staffing": 2, "oa": "NAP", "home_unit": "CAL FIRE LNU", "region": "II", "lat": 38.51, "lon": -122.47, "status": "committed", "readiness_min": 0 },
-    { "id": "E-2641", "type": "engine", "engine_type": 3, "staffing": 3, "oa": "LAK", "home_unit": "Lake County FD", "region": "II", "lat": 39.02, "lon": -122.91, "status": "available", "readiness_min": 12 },
-    { "id": "E-2652", "type": "engine", "engine_type": 1, "staffing": 4, "oa": "MEN", "home_unit": "Ukiah Valley FD", "region": "II", "lat": 39.15, "lon": -123.21, "status": "available", "readiness_min": 15 },
-    { "id": "C-2601", "type": "hand_crew", "staffing": 17, "oa": "SNO", "home_unit": "CAL FIRE LNU Crew 1", "region": "II", "lat": 38.51, "lon": -122.80, "status": "available", "readiness_min": 20 },
-    { "id": "C-2603", "type": "hand_crew", "staffing": 15, "oa": "NAP", "home_unit": "Napa Camp Crew", "region": "II", "lat": 38.40, "lon": -122.35, "status": "available", "readiness_min": 25 },
-    { "id": "D-2681", "type": "dozer", "staffing": 1, "oa": "SNO", "home_unit": "CAL FIRE LNU", "region": "II", "lat": 38.55, "lon": -122.82, "status": "available", "readiness_min": 18 },
-    { "id": "A-2691", "type": "aircraft", "aircraft_type": "airtanker", "staffing": 2, "oa": "STATE", "home_unit": "CAL FIRE ATB Sonoma", "region": "II", "lat": 38.51, "lon": -122.81, "status": "available", "readiness_min": 12 },
-    { "id": "A-2695", "type": "aircraft", "aircraft_type": "helicopter", "staffing": 4, "oa": "STATE", "home_unit": "CAL FIRE Helitack 104", "region": "II", "lat": 38.60, "lon": -122.90, "status": "available", "readiness_min": 10 }
+    { "id": "E-4611", "type": "engine", "engine_type": 3, "staffing": 3, "oa": "JUS", "home_unit": "Cedar Hollow FPD", "region": "II", "lat": 38.72, "lon": -122.90, "status": "available", "readiness_min": 5 },
+    { "id": "E-4614", "type": "engine", "engine_type": 1, "staffing": 4, "oa": "JUS", "home_unit": "Faircourt FD", "region": "II", "lat": 38.66, "lon": -122.82, "status": "available", "readiness_min": 8 },
+    { "id": "E-4622", "type": "engine", "engine_type": 3, "staffing": 3, "oa": "JUS", "home_unit": "Justice County FD Sta. 22", "region": "II", "lat": 38.60, "lon": -122.75, "status": "available", "readiness_min": 6 },
+    { "id": "E-4631", "type": "engine", "engine_type": 3, "staffing": 3, "oa": "LIB", "home_unit": "Liberty County FD", "region": "II", "lat": 38.40, "lon": -122.55, "status": "available", "readiness_min": 12 },
+    { "id": "E-4634", "type": "engine", "engine_type": 6, "staffing": 2, "oa": "LIB", "home_unit": "CAL FIRE (Liberty)", "region": "II", "lat": 38.45, "lon": -122.60, "status": "committed", "readiness_min": 0 },
+    { "id": "E-4641", "type": "engine", "engine_type": 3, "staffing": 3, "oa": "UNI", "home_unit": "Union County FD", "region": "II", "lat": 39.02, "lon": -122.98, "status": "available", "readiness_min": 15 },
+    { "id": "E-4652", "type": "engine", "engine_type": 1, "staffing": 4, "oa": "UNI", "home_unit": "Union Valley FD", "region": "II", "lat": 39.10, "lon": -123.10, "status": "available", "readiness_min": 18 },
+    { "id": "C-4601", "type": "hand_crew", "staffing": 17, "oa": "JUS", "home_unit": "CAL FIRE Justice Crew 1", "region": "II", "lat": 38.63, "lon": -122.80, "status": "available", "readiness_min": 20 },
+    { "id": "C-4603", "type": "hand_crew", "staffing": 15, "oa": "LIB", "home_unit": "Liberty Camp Crew", "region": "II", "lat": 38.42, "lon": -122.52, "status": "available", "readiness_min": 25 },
+    { "id": "D-4681", "type": "dozer", "staffing": 1, "oa": "JUS", "home_unit": "CAL FIRE (Justice)", "region": "II", "lat": 38.58, "lon": -122.83, "status": "available", "readiness_min": 18 },
+    { "id": "A-4691", "type": "aircraft", "aircraft_type": "airtanker", "staffing": 2, "oa": "STATE", "home_unit": "CAL FIRE Air Attack Base", "region": "II", "lat": 38.55, "lon": -122.85, "status": "available", "readiness_min": 12 },
+    { "id": "A-4695", "type": "aircraft", "aircraft_type": "helicopter", "staffing": 4, "oa": "STATE", "home_unit": "CAL FIRE Helitack 404", "region": "II", "lat": 38.68, "lon": -122.92, "status": "available", "readiness_min": 10 }
   ]
 }

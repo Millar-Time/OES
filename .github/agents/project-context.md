@@ -5,6 +5,9 @@ For full guardrails, see `.github/copilot-instructions.md`.
 
 ## What This Project Is
 - Vertical-slice **demo** for Cal OES RFI A261018369 — an agentic firefighting resource mobilization platform.
+- **Scenario/persona (canonical): `docs/scenario.md`** — user **Tom Brills** (OA Coordinator,
+  **Justice County**); incident **Ridgeline Fire** above **Cedar Hollow**; neighbor OAs Liberty/Union,
+  Region II. Use these exact names in code, data, and UI.
 - Key users/personas: statewide/regional fire coordinators, ops center staff, mutual-aid dispatchers.
 - Core problem it solves: the *downstream* gap — turning a detected signal into a fast,
   auditable, human-approved resource order. Detection is already crowded; mobilization is not.

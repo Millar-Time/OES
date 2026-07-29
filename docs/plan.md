@@ -13,6 +13,9 @@ wind-driven incident. Not the full platform — a believable, working golden pat
 **Demo thesis:** detection is a solved, crowded space; the unmet need is *downstream* —
 turning signal into fast, auditable, human-approved resource orders. The demo shows that.
 
+**Scenario & persona:** see [`docs/scenario.md`](scenario.md) — user **Tom Brills** (OA Coordinator,
+**Justice County**), incident **Ridgeline Fire** above **Cedar Hollow**. Use those exact names.
+
 ## 2. The golden path (the demo script)
 
 | Step | What the audience sees | Agent | Autonomy |

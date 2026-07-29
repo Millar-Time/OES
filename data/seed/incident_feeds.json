@@ -1,24 +1,24 @@
 {
   "_note": "SYNTHETIC demo data — no real incident data, PII, or CJI. Golden-path scenario.",
-  "scenario": "Wind-driven ignition, Sonoma County foothills, red-flag conditions.",
+  "scenario": "Ridgeline Fire — wind-driven ignition above Cedar Hollow, Justice County, red-flag conditions.",
   "incident_id": "INC-2026-0729-0142",
   "feeds": [
     {
       "source": "CAD",
-      "source_detail": "Sonoma County ECC — 911 dispatch",
+      "source_detail": "Justice County ECC — 911 dispatch (Faircourt)",
       "received_utc": "2026-07-29T18:41:12Z",
       "lat": 38.7231,
       "lon": -122.8994,
       "confidence": 0.72,
       "raw": {
         "call_type": "VEG-FIRE",
-        "caller_reports": "Column of smoke off Geysers Rd, spreading fast",
-        "units_dispatched": ["E-2611", "E-2614", "BC-26"]
+        "caller_reports": "Column of smoke off Ridgeline Rd above Cedar Hollow, spreading fast",
+        "units_dispatched": ["E-4611", "E-4614", "BC-46"]
       }
     },
     {
       "source": "CAMERA",
-      "source_detail": "ALERTCalifornia PTZ — Geyser Peak",
+      "source_detail": "ALERTCalifornia PTZ — Cedar Peak",
       "received_utc": "2026-07-29T18:41:47Z",
       "lat": 38.7208,
       "lon": -122.9031,
@@ -46,11 +46,12 @@
   ],
   "fused": {
     "incident_id": "INC-2026-0729-0142",
-    "name": "Geysers Incident",
+    "name": "Ridgeline Fire",
     "type": "wildland",
     "first_detected_utc": "2026-07-29T18:41:12Z",
     "centroid": { "lat": 38.7231, "lon": -122.8997 },
-    "operational_area": "SNO",
+    "threatened_community": "Cedar Hollow",
+    "operational_area": "JUS",
     "mutual_aid_region": "II",
     "confidence": 0.9,
     "fused_from": ["CAD", "CAMERA", "SATELLITE"],
