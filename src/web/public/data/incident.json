@@ -1,0 +1,21 @@
+{
+  "incident_id": "INC-2026-0729-0142",
+  "name": "Ridgeline Fire",
+  "type": "wildland",
+  "threatened_community": "Cedar Hollow",
+  "operational_area": "JUS",
+  "mutual_aid_region": "II",
+  "centroid": {
+    "lat": 38.72307,
+    "lon": -122.89984
+  },
+  "confidence": 0.994,
+  "fused_from": [
+    "CAD",
+    "CAMERA",
+    "SATELLITE"
+  ],
+  "feed_count": 3,
+  "first_detected_utc": "2026-07-29T18:41:12Z",
+  "status": "new"
+}

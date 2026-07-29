@@ -4,6 +4,8 @@
   "parameters": {
     "location": { "value": "eastus2" },
     "prefix": { "value": "oes-demo" },
+    "planSku": { "value": "F1" },
+    "deployAi": { "value": false },
     "tags": {
       "value": {
         "project": "OES",

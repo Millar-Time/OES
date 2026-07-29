@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/staticwebapp.config.json",
+  "routes": [
+    { "route": "/api/incident", "rewrite": "/data/incident.json" },
+    { "route": "/api/resources", "rewrite": "/data/resources.json" },
+    { "route": "/api/weather", "rewrite": "/data/weather.json" },
+    { "route": "/api/maps/token", "statusCode": 503 }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/data/*", "/assets/*", "*.{css,js,png,svg,ico}"]
+  },
+  "mimeTypes": {
+    ".json": "application/json"
+  }
+}

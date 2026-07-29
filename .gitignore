@@ -27,6 +27,8 @@ main.parameters.local.json
 *.pfx
 secrets.json
 appsettings.*.local.json
+.swa-token.tmp
+*.token.tmp
 
 # Editor / OS
 .DS_Store

@@ -15,9 +15,15 @@ param location string = 'eastus2'
 @description('Short project prefix used in resource names.')
 param prefix string = 'oes-demo'
 
+@description('App Service plan SKU. F1 (Free) avoids dedicated-VM quota; use B1+ once compute quota is available.')
+param planSku string = 'B1'
+
+@description('Provision Azure OpenAI + Cosmos DB. Deferred until Phase 2 needs model reasoning + persistence.')
+param deployAi bool = true
+
 @description('Azure OpenAI model + deployment name to provision.')
 param openAiModel string = 'gpt-4o'
-param openAiModelVersion string = '2024-08-06'
+param openAiModelVersion string = '2024-11-20'
 
 @description('Resource tags.')
 param tags object = {
@@ -71,7 +77,7 @@ resource plan 'Microsoft.Web/serverfarms@2024-04-01' = {
   name: names.plan
   location: location
   tags: tags
-  sku: { name: 'B1', tier: 'Basic' }
+  sku: { name: planSku }
   kind: 'linux'
   properties: { reserved: true }
 }
@@ -89,22 +95,24 @@ resource app 'Microsoft.Web/sites@2024-04-01' = {
       linuxFxVersion: 'PYTHON|3.11'
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'
-      appSettings: [
+      appSettings: concat([
         // Endpoints only — NO keys. Auth is via managed identity.
         { name: 'OES_ENVIRONMENT', value: 'azure' }
+        { name: 'OES_AZURE_MAPS_CLIENT_ID', value: maps.properties.uniqueId }
+        { name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: appInsights.properties.ConnectionString }
+        { name: 'SCM_DO_BUILD_DURING_DEPLOYMENT', value: 'true' }
+      ], deployAi ? [
         { name: 'OES_AZURE_OPENAI_ENDPOINT', value: openai.properties.endpoint }
         { name: 'OES_AZURE_OPENAI_DEPLOYMENT', value: openAiModel }
         { name: 'OES_COSMOS_ENDPOINT', value: cosmos.properties.documentEndpoint }
         { name: 'OES_COSMOS_DATABASE', value: 'oes' }
-        { name: 'OES_AZURE_MAPS_CLIENT_ID', value: maps.properties.uniqueId }
-        { name: 'APPLICATIONINSIGHTS_CONNECTION_STRING', value: appInsights.properties.ConnectionString }
-      ]
+      ] : [])
     }
   }
 }
 
 // ---------- Azure OpenAI (Entra auth only) ----------
-resource openai 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
+resource openai 'Microsoft.CognitiveServices/accounts@2024-10-01' = if (deployAi) {
   name: names.openai
   location: location
   tags: tags
@@ -117,7 +125,7 @@ resource openai 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   }
 }
 
-resource openAiDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
+resource openAiDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = if (deployAi) {
   parent: openai
   name: openAiModel
   sku: { name: 'Standard', capacity: 20 }
@@ -127,7 +135,7 @@ resource openAiDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024
 }
 
 // ---------- Cosmos DB (serverless, key auth disabled) ----------
-resource cosmos 'Microsoft.DocumentDB/databaseAccounts@2024-11-15' = {
+resource cosmos 'Microsoft.DocumentDB/databaseAccounts@2024-11-15' = if (deployAi) {
   name: names.cosmos
   location: location
   tags: tags
@@ -142,7 +150,7 @@ resource cosmos 'Microsoft.DocumentDB/databaseAccounts@2024-11-15' = {
   }
 }
 
-resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2024-11-15' = {
+resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2024-11-15' = if (deployAi) {
   parent: cosmos
   name: 'oes'
   properties: { resource: { id: 'oes' } }
@@ -150,7 +158,7 @@ resource cosmosDb 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2024-11-15
 
 // Cosmos data-plane RBAC uses its own role system (not Azure RBAC).
 // Built-in "Cosmos DB Built-in Data Contributor" = ...002
-resource cosmosDataContributor 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments@2024-11-15' = {
+resource cosmosDataContributor 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments@2024-11-15' = if (deployAi) {
   parent: cosmos
   name: guid(cosmos.id, app.id, 'data-contributor')
   properties: {
@@ -173,7 +181,7 @@ resource maps 'Microsoft.Maps/accounts@2023-06-01' = {
 }
 
 // ---------- Role assignments (App Service MI, least privilege) ----------
-resource raOpenAi 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+resource raOpenAi 'Microsoft.Authorization/roleAssignments@2022-04-01' = if (deployAi) {
   name: guid(openai.id, app.id, roles.openAiUser)
   scope: openai
   properties: {
@@ -206,6 +214,6 @@ resource raMetrics 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
 // ---------- Outputs (endpoints only — no secrets) ----------
 output appName string = app.name
 output appHostName string = app.properties.defaultHostName
-output openAiEndpoint string = openai.properties.endpoint
-output cosmosEndpoint string = cosmos.properties.documentEndpoint
+output openAiEndpoint string = deployAi ? openai.properties.endpoint : ''
+output cosmosEndpoint string = deployAi ? cosmos.properties.documentEndpoint : ''
 output mapsClientId string = maps.properties.uniqueId
