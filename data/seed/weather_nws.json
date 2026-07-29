@@ -1,0 +1,25 @@
+{
+  "_note": "SYNTHETIC seeded NWS-style payload for the golden-path incident.",
+  "incident_id": "INC-2026-0729-0142",
+  "issued_utc": "2026-07-29T15:00:00Z",
+  "office": "NWS Bay Area (mock)",
+  "red_flag_warning": {
+    "active": true,
+    "headline": "Red Flag Warning — strong offshore winds and low humidity",
+    "valid_from_utc": "2026-07-29T17:00:00Z",
+    "valid_to_utc": "2026-07-30T11:00:00Z"
+  },
+  "observation": {
+    "temp_f": 98,
+    "relative_humidity_pct": 9,
+    "wind": {
+      "direction_deg": 45,
+      "direction_cardinal": "NE",
+      "sustained_mph": 22,
+      "gust_mph": 41
+    },
+    "haines_index": 6,
+    "fuel_moisture_pct": 4
+  },
+  "escalation_risk": "extreme"
+}

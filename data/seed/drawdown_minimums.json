@@ -1,0 +1,9 @@
+{
+  "_note": "SYNTHETIC per-operational-area minimum coverage that must remain after any order. US-07 blocks/flags recommendations that would breach these.",
+  "drawdown_minimums": [
+    { "oa": "SNO", "name": "Sonoma", "min_engines_available": 2, "min_hand_crews_available": 1 },
+    { "oa": "NAP", "name": "Napa", "min_engines_available": 1, "min_hand_crews_available": 1 },
+    { "oa": "LAK", "name": "Lake", "min_engines_available": 1, "min_hand_crews_available": 0 },
+    { "oa": "MEN", "name": "Mendocino", "min_engines_available": 1, "min_hand_crews_available": 0 }
+  ]
+}

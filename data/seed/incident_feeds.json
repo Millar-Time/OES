@@ -1,0 +1,59 @@
+{
+  "_note": "SYNTHETIC demo data — no real incident data, PII, or CJI. Golden-path scenario.",
+  "scenario": "Wind-driven ignition, Sonoma County foothills, red-flag conditions.",
+  "incident_id": "INC-2026-0729-0142",
+  "feeds": [
+    {
+      "source": "CAD",
+      "source_detail": "Sonoma County ECC — 911 dispatch",
+      "received_utc": "2026-07-29T18:41:12Z",
+      "lat": 38.7231,
+      "lon": -122.8994,
+      "confidence": 0.72,
+      "raw": {
+        "call_type": "VEG-FIRE",
+        "caller_reports": "Column of smoke off Geysers Rd, spreading fast",
+        "units_dispatched": ["E-2611", "E-2614", "BC-26"]
+      }
+    },
+    {
+      "source": "CAMERA",
+      "source_detail": "ALERTCalifornia PTZ — Geyser Peak",
+      "received_utc": "2026-07-29T18:41:47Z",
+      "lat": 38.7208,
+      "lon": -122.9031,
+      "confidence": 0.88,
+      "raw": {
+        "detection": "smoke",
+        "bearing_deg": 214,
+        "frames_confirmed": 6,
+        "ml_model": "smoke-v4"
+      }
+    },
+    {
+      "source": "SATELLITE",
+      "source_detail": "GOES-19 FDCA hotspot (mock)",
+      "received_utc": "2026-07-29T18:46:03Z",
+      "lat": 38.7255,
+      "lon": -122.8967,
+      "confidence": 0.81,
+      "raw": {
+        "fire_radiative_power_mw": 34.5,
+        "pixel_confidence": "high",
+        "detection_band": "3.9um"
+      }
+    }
+  ],
+  "fused": {
+    "incident_id": "INC-2026-0729-0142",
+    "name": "Geysers Incident",
+    "type": "wildland",
+    "first_detected_utc": "2026-07-29T18:41:12Z",
+    "centroid": { "lat": 38.7231, "lon": -122.8997 },
+    "operational_area": "SNO",
+    "mutual_aid_region": "II",
+    "confidence": 0.9,
+    "fused_from": ["CAD", "CAMERA", "SATELLITE"],
+    "status": "new"
+  }
+}

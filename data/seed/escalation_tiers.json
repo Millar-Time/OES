@@ -1,0 +1,10 @@
+{
+  "_note": "SYNTHETIC four-tier California mutual-aid escalation. US-10 routes requests up these tiers when a level cannot fill the order.",
+  "tiers": [
+    { "level": 1, "code": "LOCAL", "name": "Local / Jurisdiction", "fills_from": ["home_unit"], "escalates_to": "OA" },
+    { "level": 2, "code": "OA", "name": "Operational Area", "fills_from": ["oa"], "escalates_to": "REGION" },
+    { "level": 3, "code": "REGION", "name": "Mutual Aid Region II", "fills_from": ["region"], "escalates_to": "STATE" },
+    { "level": 4, "code": "STATE", "name": "State (Cal OES)", "fills_from": ["STATE"], "escalates_to": "FEDERAL" }
+  ],
+  "federal_note": "Federal (NIFC/GACC) is referenced as the next step beyond STATE but is out of demo scope."
+}
