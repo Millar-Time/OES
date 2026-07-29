@@ -19,7 +19,7 @@ For full guardrails, see `.github/copilot-instructions.md`.
 - **IaC**: Bicep, RG-scoped.
 
 ## Key Project Paths
-- `.github/agents/` — Copilot agents (27: 24 core + compliance-agent, mermaid, pre-deploy-gate)
+- `.github/agents/` — Copilot agents (28: 24 core + compliance-agent, mermaid, pre-deploy-gate, excalidraw)
 - `.github/copilot-instructions.md` — project brain (all agents read first)
 - `docs/plan.md` — golden-path build plan and phases
 - `src/web/` — React/TS front end *(to scaffold)*

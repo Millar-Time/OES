@@ -140,7 +140,8 @@ When a user asks for help on an existing project, determine intent and route:
 | "Government cloud?" | @gov-cloud-agent | gov, sovereign, GCC, FedRAMP, CJIS |
 | "Compare clouds" | @cloud-compare-agent | AWS, GCP, alternative, compare |
 | "Document this" | @docs-agent | document, readme, explain |
-| "Diagram this" | @mermaid | diagram, visualize, flow, sequence |
+| "Diagram this (inline/Markdown)" | @mermaid | diagram, visualize, flow, sequence |
+| "Diagram this (deck/customer/editable)" | @excalidraw | excalidraw, architecture diagram, whiteboard, presentation visual |
 | "Ready to deliver" | @delivery-agent | deliver, go-live, handoff, training, launch |
 | "What does this domain concept mean?" | @{domain}-domain-agent | domain-specific terms |
 
