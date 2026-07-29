@@ -34,12 +34,12 @@ One wind-driven incident drives everything:
 
 | Layer | Technology | Status |
 |-------|-----------|--------|
-| Frontend | React 19 + TypeScript + Vite; map view (MapLibre/Azure Maps) | **Proposed — confirm** |
+| Frontend | React 19 + TypeScript + Vite; Azure Maps COP canvas | **Confirmed** |
 | Mapping | **Azure Maps** — COP canvas + digital-twin view; Entra/MI auth (no shared key) | **Confirmed** |
-| Agent service | Python (FastAPI) on Azure AI Foundry / Azure OpenAI; Microsoft Agent Framework | **Proposed — confirm** |
-| Orchestration | Mission Orchestrator + specialist agents (see golden path) | Proposed |
-| Data | Seeded/mock JSON behind tool interfaces (no live federal/vendor feeds) | Confirmed |
-| Hosting | Azure Container Apps (or App Service) | Proposed — confirm |
+| Agent service | Python (FastAPI) + Microsoft Agent Framework on Azure OpenAI | **Confirmed** |
+| Orchestration | Mission Orchestrator + specialist agents (see golden path) | Confirmed |
+| Data | Cosmos DB (serverless) for seed data + decision-trace ledger; mock feeds behind tool interfaces | **Confirmed** |
+| Hosting | Azure App Service | **Confirmed** |
 | Cloud | **Azure Commercial** | **Confirmed** |
 | CI/CD | GitHub Actions (OIDC → Azure, no stored credentials) | Confirmed |
 | Auth | Microsoft Entra ID | Confirmed |

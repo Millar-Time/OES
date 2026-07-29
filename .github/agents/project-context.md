@@ -10,13 +10,13 @@ For full guardrails, see `.github/copilot-instructions.md`.
   auditable, human-approved resource order. Detection is already crowded; mobilization is not.
 
 ## Technology Stack
-- **Backend / agents**: Python (FastAPI) agent service — Mission Orchestrator + specialists.
-  Reasoning on Azure OpenAI / Azure AI Foundry. *(Proposed — confirm before build.)*
-- **Frontend**: React 19 + TypeScript + Vite; map view. *(Proposed.)*
+- **Backend / agents**: Python (FastAPI) + **Microsoft Agent Framework** — Mission Orchestrator +
+  specialists. Reasoning on Azure OpenAI. *(Confirmed.)*
+- **Frontend**: React 19 + TypeScript + Vite. *(Confirmed.)*
 - **Mapping**: **Azure Maps** — COP canvas + digital-twin view (incident marker, wind vector,
   resource positions, drawdown/mutual-aid region overlays). Entra/MI auth, no shared key. *(Confirmed.)*
-- **Database**: Seeded/mock JSON now; Cosmos DB or Storage for seed data + decision-trace ledger *(TBD)*.
-- **Hosting**: Azure Container Apps (or App Service). *(Proposed — confirm.)*
+- **Database**: **Cosmos DB (serverless)** for seed data + decision-trace ledger. *(Confirmed.)*
+- **Hosting**: **Azure App Service**. *(Confirmed.)*
 - **Auth**: Microsoft Entra ID; **Managed Identity + RBAC only, passwordless**. GitHub→Azure via OIDC.
 - **IaC**: Bicep, RG-scoped.
 

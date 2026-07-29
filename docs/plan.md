@@ -57,8 +57,8 @@ Plus: a **conversational assistant** over the COP (natural-language questions) a
 |----------|---------|------|
 | Azure OpenAI (or AI Foundry) | Agent reasoning models | MI + RBAC |
 | Azure Maps | COP map canvas + digital-twin view (incident, wind, resources, region overlays) | MI + RBAC (Entra-based, no shared key) |
-| Container Apps (or App Service) | Host web + agent service | System-assigned MI |
-| Storage / Cosmos DB | Seeded data + decision-trace ledger | MI + RBAC |
+| App Service | Host web + agent service | System-assigned MI |
+| Cosmos DB (serverless) | Seeded data + decision-trace ledger | MI + RBAC |
 | Key Vault | Any unavoidable secret (referenced, not inlined) | MI + RBAC |
 | Log Analytics / App Insights | Telemetry + traces | MI |
 | Managed Identity + role assignments | Passwordless service-to-service | — |
@@ -76,12 +76,11 @@ Plus: a **conversational assistant** over the COP (natural-language questions) a
 
 ## 7. Open decisions (need confirmation)
 
-1. **Stack** — React/TS front end + Python(FastAPI) agent service on Azure OpenAI/AI Foundry. Confirm or adjust.
-2. **Hosting** — Container Apps vs App Service.
-3. **Data store** — Cosmos DB vs Storage for seed data + trace ledger.
-4. **Cost center tag** for RG `OES`.
+1. **Cost center tag** for RG `OES`.
 
-**Decided:** Mapping = **Azure Maps** (Entra/MI auth, no shared key).
+**Decided:** Frontend = React 19 + TS + Vite · Mapping = **Azure Maps** (Entra/MI, no key) ·
+Agent service = **Python (FastAPI) + Microsoft Agent Framework on Azure OpenAI** ·
+Hosting = **Azure App Service** · Data = **Cosmos DB (serverless)** for seed data + trace ledger.
 
 ## 8. Working agreements
 
