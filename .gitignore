@@ -1,0 +1,40 @@
+# Node / web
+node_modules/
+dist/
+build/
+.vite/
+*.local
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Azure / IaC
+*.azure/
+.terraform/
+*.tfstate
+*.tfstate.*
+main.parameters.local.json
+
+# Secrets — never commit
+*.pem
+*.key
+*.pfx
+secrets.json
+appsettings.*.local.json
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Data — seeded data only; keep mock, ignore large/real
+data/**/*.tmp
+*.xlsx
