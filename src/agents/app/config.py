@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     # Azure Maps (token minted for the app's managed identity)
     azure_maps_client_id: str = ""
 
+    # CORS — the Vite dev server origin(s) allowed to call this API locally.
+    cors_origins: list[str] = ["http://localhost:5173"]
+
     environment: str = "local"
 
 

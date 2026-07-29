@@ -1,17 +1,19 @@
-"""Mission Orchestrator — routes a mission to specialist agents.
+"""Mission Orchestrator — coordinates specialist tools for the golden path.
 
-Skeleton for F4. Wires up the Microsoft Agent Framework orchestrator and the
-specialist roster (Incident Intelligence, Decision Support, Resource
-Recommendation, IROC/IRWIN Interop [mock], Digital Twin / Trace). Every step is
-appended to the decision-trace ledger (F6) and gated by the configured autonomy
-level, with human approval as a first-class step.
+F4 wiring: registers the tool suite and exposes high-level operations the API
+calls. Microsoft Agent Framework model-reasoning steps (Decision Support,
+Resource Recommendation) land in Phase 2; this provides the deterministic COP
+foundation (US-01) they build on. Every operation is grounded in seeded data.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
 
+# Importing the tool modules registers them on the shared registry.
 from .tools import registry
+from .tools import feeds as _feeds  # noqa: F401
+from .tools import inventory as _inventory  # noqa: F401
 
 
 @dataclass
@@ -22,18 +24,25 @@ class Mission:
 
 
 class MissionOrchestrator:
-    """Routes missions to specialist agents. Full wiring lands in F4."""
-
     def __init__(self) -> None:
         self.tools = registry
 
+    async def common_operating_picture(self) -> dict[str, Any]:
+        """US-01: the fused incident that anchors the demo."""
+        return await self.tools.get("fuse_incident_feeds").run()
+
+    async def resources(self, oa: str | None = None, status: str | None = None) -> list[dict[str, Any]]:
+        return await self.tools.get("list_resources").run(oa=oa, status=status)
+
+    async def weather(self) -> dict[str, Any]:
+        return await self.tools.get("get_weather").run()
+
     async def handle(self, mission: Mission) -> dict[str, Any]:
-        # TODO(F4): route to specialist agents via Microsoft Agent Framework,
-        # ground every step in seeded data, write to the trace ledger (F6),
-        # and enforce the per-resource autonomy level (US-20/US-21).
+        cop = await self.common_operating_picture()
         return {
-            "incident_id": mission.incident_id,
-            "status": "scaffold",
+            "incident_id": mission.incident_id or cop["incident_id"],
+            "goal": mission.goal,
+            "cop": cop,
             "tools_available": self.tools.list(),
         }
 
