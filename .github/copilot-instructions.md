@@ -35,6 +35,7 @@ One wind-driven incident drives everything:
 | Layer | Technology | Status |
 |-------|-----------|--------|
 | Frontend | React 19 + TypeScript + Vite; map view (MapLibre/Azure Maps) | **Proposed — confirm** |
+| Mapping | **Azure Maps** — COP canvas + digital-twin view; Entra/MI auth (no shared key) | **Confirmed** |
 | Agent service | Python (FastAPI) on Azure AI Foundry / Azure OpenAI; Microsoft Agent Framework | **Proposed — confirm** |
 | Orchestration | Mission Orchestrator + specialist agents (see golden path) | Proposed |
 | Data | Seeded/mock JSON behind tool interfaces (no live federal/vendor feeds) | Confirmed |

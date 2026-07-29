@@ -47,6 +47,8 @@ Plus: a **conversational assistant** over the COP (natural-language questions) a
 ```
 
 - **Everything external is mocked** behind a tool interface (IROC, IRWIN, CAD, AVL, weather).
+- **Mapping: Azure Maps** is the primary COP canvas — incident marker, wind vector, resource
+  positions, and drawdown/mutual-aid region overlays. Auth via managed identity + RBAC (no key).
 - **RBAC + Managed Identity everywhere.** No secrets/keys. GitHub→Azure via OIDC.
 
 ## 5. Azure footprint (all in RG `OES`, East US 2, Commercial)
@@ -54,6 +56,7 @@ Plus: a **conversational assistant** over the COP (natural-language questions) a
 | Resource | Purpose | Auth |
 |----------|---------|------|
 | Azure OpenAI (or AI Foundry) | Agent reasoning models | MI + RBAC |
+| Azure Maps | COP map canvas + digital-twin view (incident, wind, resources, region overlays) | MI + RBAC (Entra-based, no shared key) |
 | Container Apps (or App Service) | Host web + agent service | System-assigned MI |
 | Storage / Cosmos DB | Seeded data + decision-trace ledger | MI + RBAC |
 | Key Vault | Any unavoidable secret (referenced, not inlined) | MI + RBAC |
@@ -77,6 +80,8 @@ Plus: a **conversational assistant** over the COP (natural-language questions) a
 2. **Hosting** — Container Apps vs App Service.
 3. **Data store** — Cosmos DB vs Storage for seed data + trace ledger.
 4. **Cost center tag** for RG `OES`.
+
+**Decided:** Mapping = **Azure Maps** (Entra/MI auth, no shared key).
 
 ## 8. Working agreements
 
