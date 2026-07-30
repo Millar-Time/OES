@@ -21,10 +21,15 @@ class Settings(BaseSettings):
     # Azure Maps (token minted for the app's managed identity)
     azure_maps_client_id: str = ""
 
-    # CORS — the Vite dev server origin(s) allowed to call this API locally.
-    cors_origins: list[str] = ["http://localhost:5173"]
+    # CORS — comma-separated allowed origins. Kept as a plain string so it
+    # parses cleanly from any shell / App Service setting (no JSON quoting).
+    cors_origins_raw: str = "http://localhost:5173"
 
     environment: str = "local"
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return [o.strip() for o in self.cors_origins_raw.split(",") if o.strip()]
 
 
 settings = Settings()

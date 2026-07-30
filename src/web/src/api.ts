@@ -124,8 +124,17 @@ export interface Orders {
   recommended_rationale: string;
 }
 
+// When VITE_API_BASE is set (hosted demo pointing at the standalone App Service
+// API), all /api/* calls are routed there so incident/resources/orders/weather
+// are live. Locally it's empty and the Vite proxy / SWA rewrites take over.
+const API_BASE = (import.meta.env.VITE_API_BASE || "").replace(/\/$/, "");
+
+function apiUrl(path: string): string {
+  return path.startsWith("/api") ? API_BASE + path : path;
+}
+
 async function getJSON<T>(url: string): Promise<T> {
-  const res = await fetch(url);
+  const res = await fetch(apiUrl(url));
   if (!res.ok) throw new Error(`${url} -> ${res.status}`);
   return (await res.json()) as T;
 }
@@ -141,7 +150,7 @@ export const api = {
     // Token endpoint is configurable: on the hosted SWA (Free tier, no MI in
     // built-in functions) it points at a standalone Consumption Function App;
     // locally it falls back to the FastAPI service via the dev proxy.
-    const url = import.meta.env.VITE_MAPS_TOKEN_URL || "/api/maps/token";
+    const url = import.meta.env.VITE_MAPS_TOKEN_URL || apiUrl("/api/maps/token");
     const res = await fetch(url);
     return (await res.json()) as MapsToken;
   },
