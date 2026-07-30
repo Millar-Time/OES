@@ -58,6 +58,20 @@ async def initial_response() -> dict[str, Any]:
     return await orchestrator.initial_response()
 
 
+@app.get("/api/orders")
+async def orders() -> dict[str, Any]:
+    """US-06/US-07 — ranked resource-order options with the drawdown guardrail."""
+    return await orchestrator.orders()
+
+
+@app.get("/api/drawdown")
+async def drawdown(
+    committed_ids: str | None = Query(default=None, description="Comma-separated resource ids"),
+) -> dict[str, Any]:
+    ids = [i for i in (committed_ids or "").split(",") if i]
+    return await orchestrator.drawdown(committed_ids=ids)
+
+
 @app.get("/api/maps/token")
 async def maps_token() -> JSONResponse:
     result = get_maps_token()

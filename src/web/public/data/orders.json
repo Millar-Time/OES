@@ -1,0 +1,230 @@
+{
+  "incident_id": "INC-2026-0729-0142",
+  "incident_name": "Ridgeline Fire",
+  "operational_area": "JUS",
+  "requested_package": {
+    "engine": 4,
+    "hand_crew": 1,
+    "dozer": 1,
+    "aircraft": 2
+  },
+  "options": [
+    {
+      "name": "Protect OA coverage",
+      "strategy": "Closest units that keep every OA at or above its drawdown minimum.",
+      "assignments": [
+        {
+          "id": "E-4611",
+          "type": "engine",
+          "home_unit": "Cedar Hollow FPD",
+          "oa": "JUS",
+          "tier": "Operational Area",
+          "distance_km": 0.3,
+          "eta_min": 5
+        },
+        {
+          "id": "E-4641",
+          "type": "engine",
+          "home_unit": "Union County FD",
+          "oa": "UNI",
+          "tier": "Mutual Aid Region II",
+          "distance_km": 33.7,
+          "eta_min": 52
+        },
+        {
+          "id": "D-4681",
+          "type": "dozer",
+          "home_unit": "CAL FIRE (Justice)",
+          "oa": "JUS",
+          "tier": "Operational Area",
+          "distance_km": 17.0,
+          "eta_min": 37
+        },
+        {
+          "id": "A-4695",
+          "type": "aircraft",
+          "home_unit": "CAL FIRE Helitack 404",
+          "oa": "STATE",
+          "tier": "State (Cal OES)",
+          "distance_km": 5.1,
+          "eta_min": 11
+        },
+        {
+          "id": "A-4691",
+          "type": "aircraft",
+          "home_unit": "CAL FIRE Air Attack Base",
+          "oa": "STATE",
+          "tier": "State (Cal OES)",
+          "distance_km": 19.7,
+          "eta_min": 17
+        }
+      ],
+      "unfilled": [
+        {
+          "type": "engine",
+          "requested": 4,
+          "filled": 2
+        },
+        {
+          "type": "hand_crew",
+          "requested": 1,
+          "filled": 0
+        }
+      ],
+      "max_eta_min": 52,
+      "avg_eta_min": 24,
+      "drawdown": {
+        "any_breach": false,
+        "areas": [
+          {
+            "oa": "JUS",
+            "name": "Justice",
+            "engines_remaining": 2,
+            "min_engines": 2,
+            "hand_crews_remaining": 1,
+            "min_hand_crews": 1,
+            "status": "AT_MIN"
+          },
+          {
+            "oa": "LIB",
+            "name": "Liberty",
+            "engines_remaining": 1,
+            "min_engines": 1,
+            "hand_crews_remaining": 1,
+            "min_hand_crews": 1,
+            "status": "AT_MIN"
+          },
+          {
+            "oa": "UNI",
+            "name": "Union",
+            "engines_remaining": 1,
+            "min_engines": 1,
+            "hand_crews_remaining": 0,
+            "min_hand_crews": 0,
+            "status": "AT_MIN"
+          }
+        ]
+      },
+      "escalation_recommended": true,
+      "rank": 1,
+      "recommended": true
+    },
+    {
+      "name": "Fastest response",
+      "strategy": "Closest available units first, ignoring OA coverage.",
+      "assignments": [
+        {
+          "id": "E-4611",
+          "type": "engine",
+          "home_unit": "Cedar Hollow FPD",
+          "oa": "JUS",
+          "tier": "Operational Area",
+          "distance_km": 0.3,
+          "eta_min": 5
+        },
+        {
+          "id": "E-4614",
+          "type": "engine",
+          "home_unit": "Faircourt FD",
+          "oa": "JUS",
+          "tier": "Operational Area",
+          "distance_km": 9.9,
+          "eta_min": 19
+        },
+        {
+          "id": "E-4622",
+          "type": "engine",
+          "home_unit": "Justice County FD Sta. 22",
+          "oa": "JUS",
+          "tier": "Operational Area",
+          "distance_km": 18.9,
+          "eta_min": 27
+        },
+        {
+          "id": "E-4641",
+          "type": "engine",
+          "home_unit": "Union County FD",
+          "oa": "UNI",
+          "tier": "Mutual Aid Region II",
+          "distance_km": 33.7,
+          "eta_min": 52
+        },
+        {
+          "id": "C-4601",
+          "type": "hand_crew",
+          "home_unit": "CAL FIRE Justice Crew 1",
+          "oa": "JUS",
+          "tier": "Operational Area",
+          "distance_km": 13.5,
+          "eta_min": 35
+        },
+        {
+          "id": "D-4681",
+          "type": "dozer",
+          "home_unit": "CAL FIRE (Justice)",
+          "oa": "JUS",
+          "tier": "Operational Area",
+          "distance_km": 17.0,
+          "eta_min": 37
+        },
+        {
+          "id": "A-4695",
+          "type": "aircraft",
+          "home_unit": "CAL FIRE Helitack 404",
+          "oa": "STATE",
+          "tier": "State (Cal OES)",
+          "distance_km": 5.1,
+          "eta_min": 11
+        },
+        {
+          "id": "A-4691",
+          "type": "aircraft",
+          "home_unit": "CAL FIRE Air Attack Base",
+          "oa": "STATE",
+          "tier": "State (Cal OES)",
+          "distance_km": 19.7,
+          "eta_min": 17
+        }
+      ],
+      "unfilled": [],
+      "max_eta_min": 52,
+      "avg_eta_min": 25,
+      "drawdown": {
+        "any_breach": true,
+        "areas": [
+          {
+            "oa": "JUS",
+            "name": "Justice",
+            "engines_remaining": 0,
+            "min_engines": 2,
+            "hand_crews_remaining": 0,
+            "min_hand_crews": 1,
+            "status": "BREACH"
+          },
+          {
+            "oa": "LIB",
+            "name": "Liberty",
+            "engines_remaining": 1,
+            "min_engines": 1,
+            "hand_crews_remaining": 1,
+            "min_hand_crews": 1,
+            "status": "AT_MIN"
+          },
+          {
+            "oa": "UNI",
+            "name": "Union",
+            "engines_remaining": 1,
+            "min_engines": 1,
+            "hand_crews_remaining": 0,
+            "min_hand_crews": 0,
+            "status": "AT_MIN"
+          }
+        ]
+      },
+      "escalation_recommended": false,
+      "rank": 2,
+      "recommended": false
+    }
+  ],
+  "recommended_rationale": "The fastest order would breach Justice County's drawdown minimum. The recommended 'Protect OA coverage' order protects OA coverage but can only fill 5 of 8 requested resources from local + Region II \u2014 escalate to State mutual aid (US-10) for the remainder."
+}

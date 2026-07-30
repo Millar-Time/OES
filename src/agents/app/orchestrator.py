@@ -15,6 +15,8 @@ from .tools import registry
 from .tools import feeds as _feeds  # noqa: F401
 from .tools import inventory as _inventory  # noqa: F401
 from .tools import recommend as _recommend  # noqa: F401
+from .tools import drawdown as _drawdown  # noqa: F401
+from .tools import orders as _orders  # noqa: F401
 
 
 @dataclass
@@ -41,6 +43,14 @@ class MissionOrchestrator:
     async def initial_response(self) -> dict[str, Any]:
         """US-04: escalated initial-attack recommendation with rationale."""
         return await self.tools.get("recommend_initial_response").run()
+
+    async def orders(self) -> dict[str, Any]:
+        """US-06/US-07: ranked resource-order options with the drawdown guardrail."""
+        return await self.tools.get("rank_orders").run()
+
+    async def drawdown(self, committed_ids: list[str] | None = None) -> dict[str, Any]:
+        """US-07: assess remaining OA coverage for a committed set."""
+        return await self.tools.get("assess_drawdown").run(committed_ids=committed_ids or [])
 
     async def handle(self, mission: Mission) -> dict[str, Any]:
         cop = await self.common_operating_picture()

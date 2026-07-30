@@ -31,6 +31,7 @@ export const NAV: NavItem[] = [
     id: "orders",
     label: "Resource Orders",
     stories: ["US-06", "US-07"],
+    live: true,
     blurb: "Ranked resource orders with the operational-area drawdown guardrail enforced.",
   },
   {

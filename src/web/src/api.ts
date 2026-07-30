@@ -82,6 +82,48 @@ export interface MapsToken {
   reason?: string;
 }
 
+export interface OrderAssignment {
+  id: string;
+  type: string;
+  home_unit: string;
+  oa: string;
+  tier: string;
+  distance_km: number;
+  eta_min: number;
+}
+
+export interface DrawdownArea {
+  oa: string;
+  name: string;
+  engines_remaining: number;
+  min_engines: number;
+  hand_crews_remaining: number;
+  min_hand_crews: number;
+  status: "OK" | "AT_MIN" | "BREACH";
+}
+
+export interface OrderOption {
+  name: string;
+  strategy: string;
+  assignments: OrderAssignment[];
+  unfilled: { type: string; requested: number; filled: number }[];
+  max_eta_min: number;
+  avg_eta_min: number;
+  drawdown: { any_breach: boolean; areas: DrawdownArea[] };
+  escalation_recommended: boolean;
+  rank: number;
+  recommended: boolean;
+}
+
+export interface Orders {
+  incident_id: string;
+  incident_name: string;
+  operational_area: string;
+  requested_package: Record<string, number>;
+  options: OrderOption[];
+  recommended_rationale: string;
+}
+
 async function getJSON<T>(url: string): Promise<T> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`${url} -> ${res.status}`);
@@ -94,6 +136,7 @@ export const api = {
     getJSON<Resource[]>("/api/resources" + (oa ? `?oa=${encodeURIComponent(oa)}` : "")),
   weather: () => getJSON<Weather>("/api/weather"),
   initialResponse: () => getJSON<Recommendation>("/api/recommendation/initial"),
+  orders: () => getJSON<Orders>("/api/orders"),
   async mapsToken(): Promise<MapsToken> {
     const res = await fetch("/api/maps/token");
     return (await res.json()) as MapsToken;

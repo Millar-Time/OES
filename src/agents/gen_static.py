@@ -22,6 +22,7 @@ async def main() -> None:
         "resources.json": await orchestrator.resources(),
         "weather.json": await orchestrator.weather(),
         "recommendation-initial.json": await orchestrator.initial_response(),
+        "orders.json": await orchestrator.orders(),
     }
     for name, payload in snapshots.items():
         (OUT / name).write_text(json.dumps(payload, indent=2))

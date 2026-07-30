@@ -12,40 +12,14 @@ required type, grounded entirely in seeded data.
 """
 from __future__ import annotations
 
-import math
 from typing import Any
 
 from ..data import incident_feeds, resource_inventory, weather
+from ..geo import eta_min as _eta_min
+from ..geo import haversine_km as _haversine_km
+from ..geo import tier as _tier
 from ..tools.feeds import fuse
 from . import Tool, registry
-
-# Rough travel speeds (km/h) used only to estimate ETA for the demo.
-GROUND_SPEED_KMH = 55.0
-AIR_SPEED_KMH = 220.0
-AIR_TYPES = {"aircraft"}
-
-
-def _haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
-    r = 6371.0
-    p1, p2 = math.radians(lat1), math.radians(lat2)
-    dp = math.radians(lat2 - lat1)
-    dl = math.radians(lon2 - lon1)
-    a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
-    return r * 2 * math.asin(math.sqrt(a))
-
-
-def _eta_min(resource: dict[str, Any], km: float) -> int:
-    speed = AIR_SPEED_KMH if resource["type"] in AIR_TYPES else GROUND_SPEED_KMH
-    travel = (km / speed) * 60.0
-    return int(round(resource.get("readiness_min", 10) + travel))
-
-
-def _tier(resource: dict[str, Any], incident_oa: str) -> str:
-    if resource["oa"] == incident_oa:
-        return "Operational Area"
-    if resource["oa"] == "STATE":
-        return "State (Cal OES)"
-    return "Mutual Aid Region II"
 
 
 def _package(incident: dict[str, Any], wx: dict[str, Any]) -> dict[str, int]:

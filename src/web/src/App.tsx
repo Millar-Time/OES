@@ -9,6 +9,7 @@ import { NAV } from "./nav";
 import { NavRail } from "./NavRail";
 import { CopView } from "./CopView";
 import { InitialResponseView } from "./InitialResponseView";
+import { OrdersView } from "./OrdersView";
 import { Placeholder } from "./Placeholder";
 import { ThemeToggle } from "./ThemeToggle";
 import "./styles.css";
@@ -23,6 +24,8 @@ export function App() {
         return <CopView />;
       case "initial-response":
         return <InitialResponseView />;
+      case "orders":
+        return <OrdersView />;
       default:
         return <Placeholder item={item} />;
     }
