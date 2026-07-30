@@ -1,0 +1,9 @@
+{
+  "name": "oes-swa-api",
+  "version": "1.0.0",
+  "description": "SWA managed function: mints a short-lived Entra token for Azure Maps via the SWA managed identity (keyless).",
+  "main": "maps-token/index.js",
+  "dependencies": {
+    "@azure/identity": "^4.5.0"
+  }
+}

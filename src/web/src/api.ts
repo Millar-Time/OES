@@ -138,7 +138,11 @@ export const api = {
   initialResponse: () => getJSON<Recommendation>("/api/recommendation/initial"),
   orders: () => getJSON<Orders>("/api/orders"),
   async mapsToken(): Promise<MapsToken> {
-    const res = await fetch("/api/maps/token");
+    // Token endpoint is configurable: on the hosted SWA (Free tier, no MI in
+    // built-in functions) it points at a standalone Consumption Function App;
+    // locally it falls back to the FastAPI service via the dev proxy.
+    const url = import.meta.env.VITE_MAPS_TOKEN_URL || "/api/maps/token";
+    const res = await fetch(url);
     return (await res.json()) as MapsToken;
   },
 };
