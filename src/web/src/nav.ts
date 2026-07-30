@@ -24,6 +24,7 @@ export const NAV: NavItem[] = [
     id: "initial-response",
     label: "Initial Response",
     stories: ["US-04"],
+    live: true,
     blurb: "Auto-generated initial attack recommendation the moment the incident is confirmed.",
   },
   {

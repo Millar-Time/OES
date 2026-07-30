@@ -4,6 +4,7 @@
     { "route": "/api/incident", "rewrite": "/data/incident.json" },
     { "route": "/api/resources", "rewrite": "/data/resources.json" },
     { "route": "/api/weather", "rewrite": "/data/weather.json" },
+    { "route": "/api/recommendation/initial", "rewrite": "/data/recommendation-initial.json" },
     { "route": "/api/maps/token", "statusCode": 503 }
   ],
   "navigationFallback": {

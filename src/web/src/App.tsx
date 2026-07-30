@@ -8,6 +8,7 @@ import { useState } from "react";
 import { NAV } from "./nav";
 import { NavRail } from "./NavRail";
 import { CopView } from "./CopView";
+import { InitialResponseView } from "./InitialResponseView";
 import { Placeholder } from "./Placeholder";
 import { ThemeToggle } from "./ThemeToggle";
 import "./styles.css";
@@ -15,6 +16,17 @@ import "./styles.css";
 export function App() {
   const [active, setActive] = useState("cop");
   const item = NAV.find((n) => n.id === active) ?? NAV[0];
+
+  function renderView() {
+    switch (item.id) {
+      case "cop":
+        return <CopView />;
+      case "initial-response":
+        return <InitialResponseView />;
+      default:
+        return <Placeholder item={item} />;
+    }
+  }
 
   return (
     <div className="app">
@@ -25,9 +37,7 @@ export function App() {
       </header>
       <div className="shell">
         <NavRail active={active} onSelect={setActive} />
-        <main className="content">
-          {item.id === "cop" ? <CopView /> : <Placeholder item={item} />}
-        </main>
+        <main className="content">{renderView()}</main>
       </div>
     </div>
   );

@@ -52,6 +52,12 @@ async def weather() -> dict[str, Any]:
     return await orchestrator.weather()
 
 
+@app.get("/api/recommendation/initial")
+async def initial_response() -> dict[str, Any]:
+    """US-04 — recommended initial-attack package with ETAs and rationale."""
+    return await orchestrator.initial_response()
+
+
 @app.get("/api/maps/token")
 async def maps_token() -> JSONResponse:
     result = get_maps_token()

@@ -14,6 +14,7 @@ from typing import Any
 from .tools import registry
 from .tools import feeds as _feeds  # noqa: F401
 from .tools import inventory as _inventory  # noqa: F401
+from .tools import recommend as _recommend  # noqa: F401
 
 
 @dataclass
@@ -36,6 +37,10 @@ class MissionOrchestrator:
 
     async def weather(self) -> dict[str, Any]:
         return await self.tools.get("get_weather").run()
+
+    async def initial_response(self) -> dict[str, Any]:
+        """US-04: escalated initial-attack recommendation with rationale."""
+        return await self.tools.get("recommend_initial_response").run()
 
     async def handle(self, mission: Mission) -> dict[str, Any]:
         cop = await self.common_operating_picture()

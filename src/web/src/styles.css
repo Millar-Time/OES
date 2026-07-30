@@ -114,6 +114,59 @@ body {
 
 .placeholder-view { padding: 20px; }
 .muted { color: var(--muted); }
+.small { font-size: 11px; }
+.mono { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+
+/* Weather card */
+.badge-redflag { color: #fff; background: var(--red); border-color: var(--red); }
+.redflag-headline { margin: 6px 0 0; font-size: 12px; color: var(--red); }
+.risk-extreme { color: var(--red); font-weight: 700; }
+
+/* US-04 Initial Response view */
+.ir-view { padding: 18px; overflow-y: auto; height: 100%; display: flex; flex-direction: column; gap: 16px; }
+.ir-banner {
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  background: linear-gradient(90deg, rgba(248,81,73,.14), transparent);
+  border: 1px solid var(--line); border-left: 4px solid var(--red);
+  border-radius: 10px; padding: 16px 20px;
+}
+.ir-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.ir-banner h2 { margin: 4px 0; font-size: 20px; }
+.ir-pkg { margin: 2px 0; font-size: 15px; font-weight: 600; color: var(--accent); }
+.ir-conf { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 140px; }
+.ir-conf-num { font-size: 22px; font-weight: 700; }
+.meter-lg { width: 140px; height: 8px; }
+
+.ir-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: start; }
+.ir-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+.ir-table th { text-align: left; color: var(--muted); font-weight: 600; padding: 4px 8px; border-bottom: 1px solid var(--line); }
+.ir-table td { padding: 5px 8px; border-bottom: 1px solid var(--line); }
+.tier { font-size: 11px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); white-space: nowrap; }
+.tier-oa { color: #3fb950; border-color: #3fb950; }
+.tier-region { color: #d29922; border-color: #d29922; }
+.tier-state { color: var(--accent); border-color: var(--accent); }
+.ir-unfilled { color: var(--red); font-size: 12px; margin-top: 8px; }
+
+.ir-why .ir-rationale { font-size: 13px; line-height: 1.5; }
+.ir-sub { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 14px 0 6px; }
+.ir-drivers { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ir-drivers li { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 12px; }
+.drv-factor { font-weight: 600; }
+.drv-value { color: var(--text); }
+.ir-drivers .small { grid-column: 1 / -1; }
+
+.ir-actions { display: flex; gap: 10px; align-items: center; padding-top: 4px; }
+.btn {
+  font-family: inherit; font-size: 13px; padding: 8px 16px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer;
+}
+.btn:hover { background: var(--hover); }
+.btn-approve { background: #2e7d32; border-color: #2e7d32; color: #fff; font-weight: 600; }
+.btn-approve:hover { background: #276b2b; }
+.btn-ghost { color: var(--muted); }
+.ir-decision { font-size: 13px; color: var(--text); }
+
+@media (max-width: 1000px) { .ir-grid { grid-template-columns: 1fr; } }
 
 .sidebar {
   overflow-y: auto;

@@ -1,0 +1,128 @@
+{
+  "incident_id": "INC-2026-0729-0142",
+  "incident_name": "Ridgeline Fire",
+  "threatened_community": "Cedar Hollow",
+  "operational_area": "JUS",
+  "requested_package": {
+    "engine": 4,
+    "hand_crew": 1,
+    "dozer": 1,
+    "aircraft": 2
+  },
+  "assignments": [
+    {
+      "id": "E-4611",
+      "type": "engine",
+      "home_unit": "Cedar Hollow FPD",
+      "oa": "JUS",
+      "tier": "Operational Area",
+      "distance_km": 0.3,
+      "eta_min": 5,
+      "rationale": "Closest available engine (Cedar Hollow FPD, Operational Area); ETA ~5 min."
+    },
+    {
+      "id": "E-4614",
+      "type": "engine",
+      "home_unit": "Faircourt FD",
+      "oa": "JUS",
+      "tier": "Operational Area",
+      "distance_km": 9.9,
+      "eta_min": 19,
+      "rationale": "Closest available engine (Faircourt FD, Operational Area); ETA ~19 min."
+    },
+    {
+      "id": "E-4622",
+      "type": "engine",
+      "home_unit": "Justice County FD Sta. 22",
+      "oa": "JUS",
+      "tier": "Operational Area",
+      "distance_km": 18.9,
+      "eta_min": 27,
+      "rationale": "Closest available engine (Justice County FD Sta. 22, Operational Area); ETA ~27 min."
+    },
+    {
+      "id": "E-4641",
+      "type": "engine",
+      "home_unit": "Union County FD",
+      "oa": "UNI",
+      "tier": "Mutual Aid Region II",
+      "distance_km": 33.7,
+      "eta_min": 52,
+      "rationale": "Closest available engine (Union County FD, Mutual Aid Region II); ETA ~52 min."
+    },
+    {
+      "id": "C-4601",
+      "type": "hand_crew",
+      "home_unit": "CAL FIRE Justice Crew 1",
+      "oa": "JUS",
+      "tier": "Operational Area",
+      "distance_km": 13.5,
+      "eta_min": 35,
+      "rationale": "Closest available hand crew (CAL FIRE Justice Crew 1, Operational Area); ETA ~35 min."
+    },
+    {
+      "id": "D-4681",
+      "type": "dozer",
+      "home_unit": "CAL FIRE (Justice)",
+      "oa": "JUS",
+      "tier": "Operational Area",
+      "distance_km": 17.0,
+      "eta_min": 37,
+      "rationale": "Closest available dozer (CAL FIRE (Justice), Operational Area); ETA ~37 min."
+    },
+    {
+      "id": "A-4695",
+      "type": "aircraft",
+      "home_unit": "CAL FIRE Helitack 404",
+      "oa": "STATE",
+      "tier": "State (Cal OES)",
+      "distance_km": 5.1,
+      "eta_min": 11,
+      "rationale": "Closest available aircraft (CAL FIRE Helitack 404, State (Cal OES)); ETA ~11 min."
+    },
+    {
+      "id": "A-4691",
+      "type": "aircraft",
+      "home_unit": "CAL FIRE Air Attack Base",
+      "oa": "STATE",
+      "tier": "State (Cal OES)",
+      "distance_km": 19.7,
+      "eta_min": 17,
+      "rationale": "Closest available aircraft (CAL FIRE Air Attack Base, State (Cal OES)); ETA ~17 min."
+    }
+  ],
+  "unfilled": [],
+  "drivers": [
+    {
+      "factor": "Red Flag Warning",
+      "value": "Red Flag Warning \u2014 strong offshore winds and low humidity",
+      "impact": "Escalates initial-attack package (extra engine + air support)."
+    },
+    {
+      "factor": "Wind",
+      "value": "NE 22 mph, gusts 41 mph",
+      "impact": "Wind-driven spread toward the threatened community."
+    },
+    {
+      "factor": "Relative humidity",
+      "value": "9%",
+      "impact": "Very low humidity \u2014 rapid fire growth."
+    },
+    {
+      "factor": "Fuel moisture",
+      "value": "4%",
+      "impact": "Critically dry fuels."
+    }
+  ],
+  "confidence": 0.994,
+  "rationale": "Ridgeline Fire is a wind-driven wildland fire threatening Cedar Hollow under an active Red Flag Warning (extreme risk). Recommending an escalated initial-attack package of 4 engine, 1 hand crew, 1 dozer, 2 aircraft, drawn closest-first from the Operational Area and Mutual Aid Region II.",
+  "lineage": {
+    "incident": [
+      "CAD",
+      "CAMERA",
+      "SATELLITE"
+    ],
+    "weather": "NWS (mock) \u2014 Justice County / Region II",
+    "inventory_as_of": "seed"
+  }
+}

@@ -31,7 +31,48 @@ export interface Resource {
 }
 
 export interface Weather {
+  red_flag_warning?: { active: boolean; headline?: string; valid_to_utc?: string };
+  observation?: {
+    temp_f?: number;
+    relative_humidity_pct?: number;
+    wind?: { direction_cardinal?: string; sustained_mph?: number; gust_mph?: number };
+    fuel_moisture_pct?: number;
+    haines_index?: number;
+  };
+  escalation_risk?: string;
+  office?: string;
   [key: string]: unknown;
+}
+
+export interface Assignment {
+  id: string;
+  type: string;
+  home_unit: string;
+  oa: string;
+  tier: string;
+  distance_km: number;
+  eta_min: number;
+  rationale: string;
+}
+
+export interface Driver {
+  factor: string;
+  value: string;
+  impact: string;
+}
+
+export interface Recommendation {
+  incident_id: string;
+  incident_name: string;
+  threatened_community: string | null;
+  operational_area: string;
+  requested_package: Record<string, number>;
+  assignments: Assignment[];
+  unfilled: { type: string; requested: number; filled: number }[];
+  drivers: Driver[];
+  confidence: number;
+  rationale: string;
+  lineage: Record<string, unknown>;
 }
 
 export interface MapsToken {
@@ -52,6 +93,7 @@ export const api = {
   resources: (oa?: string) =>
     getJSON<Resource[]>("/api/resources" + (oa ? `?oa=${encodeURIComponent(oa)}` : "")),
   weather: () => getJSON<Weather>("/api/weather"),
+  initialResponse: () => getJSON<Recommendation>("/api/recommendation/initial"),
   async mapsToken(): Promise<MapsToken> {
     const res = await fetch("/api/maps/token");
     return (await res.json()) as MapsToken;
