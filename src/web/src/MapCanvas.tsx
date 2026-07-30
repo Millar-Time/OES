@@ -19,6 +19,30 @@ const STATUS_COLOR: Record<string, string> = {
   assigned: "#ef6c00",
 };
 
+// Ridgeline Fire perimeter footprint. Synthetic for the golden-path scenario —
+// an irregular polygon elongated toward the SW (the offshore NE wind pushes the
+// head downslope). In production this ring is fed live from an authoritative
+// wildfire feed (NIFC / Esri Living Atlas WFIGS current perimeters); the render
+// path here is identical — only the data source changes.
+const FIRE_SRC_ID = "ridgeline-fire-src";
+const FIRE_RING_OFFSETS: [number, number][] = [
+  [-0.028, -0.020], // head (SW)
+  [-0.018, -0.027],
+  [-0.006, -0.021],
+  [0.005, -0.011],
+  [0.011, 0.0], // right flank (E)
+  [0.007, 0.011],
+  [0.0, 0.017], // back (NE)
+  [-0.011, 0.015],
+  [-0.019, 0.006],
+  [-0.025, -0.005],
+  [-0.028, -0.020], // close ring
+];
+
+function fireRing(lon: number, lat: number): atlas.data.Position[] {
+  return FIRE_RING_OFFSETS.map(([dLon, dLat]) => [lon + dLon, lat + dLat]);
+}
+
 function mapStyleForTheme(): string {
   const t = document.documentElement.getAttribute("data-theme");
   return t === "light" ? "road_shaded_relief" : "grayscale_dark";
@@ -79,6 +103,52 @@ export function MapCanvas({ incident, resources }: { incident: Incident | null; 
     obs.observe(target, { attributes: true, attributeFilter: ["data-theme"] });
     return () => obs.disconnect();
   }, []);
+
+  // Draw the wildfire perimeter as map layers, and re-add it after every
+  // basemap restyle (setStyle drops sources + layers, so we re-run on the
+  // "styledata" event). Rendered beneath the DOM HtmlMarkers.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !incident) return;
+
+    const ensureFire = () => {
+      if (map.sources.getById(FIRE_SRC_ID)) return;
+      const src = new atlas.source.DataSource(FIRE_SRC_ID);
+      map.sources.add(src);
+      src.add(
+        new atlas.data.Feature(
+          new atlas.data.Polygon([fireRing(incident.centroid.lon, incident.centroid.lat)]),
+        ),
+      );
+      map.layers.add(
+        new atlas.layer.PolygonLayer(src, "ridgeline-fire-fill", {
+          fillColor: "rgba(214, 40, 40, 0.22)",
+        }),
+      );
+      map.layers.add(
+        new atlas.layer.LineLayer(src, "ridgeline-fire-line", {
+          strokeColor: "#c62828",
+          strokeWidth: 2,
+          strokeDashArray: [2, 1],
+        }),
+      );
+    };
+
+    map.events.add("ready", ensureFire);
+    map.events.add("styledata", ensureFire);
+    ensureFire();
+
+    return () => {
+      map.events.remove("ready", ensureFire);
+      map.events.remove("styledata", ensureFire);
+      for (const id of ["ridgeline-fire-fill", "ridgeline-fire-line"]) {
+        const layer = map.layers.getLayerById(id);
+        if (layer) map.layers.remove(layer);
+      }
+      const src = map.sources.getById(FIRE_SRC_ID);
+      if (src) map.sources.remove(src as atlas.source.DataSource);
+    };
+  }, [incident]);
 
   // Render markers whenever incident/resources change and the map is ready.
   // HtmlMarkers are DOM overlays, so they survive basemap restyles (theme
