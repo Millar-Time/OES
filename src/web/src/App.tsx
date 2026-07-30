@@ -12,6 +12,7 @@ import { InitialResponseView } from "./InitialResponseView";
 import { OrdersView } from "./OrdersView";
 import { Placeholder } from "./Placeholder";
 import { ThemeToggle } from "./ThemeToggle";
+import { DemoMenu } from "./DemoMenu";
 import "./styles.css";
 
 export function App() {
@@ -36,7 +37,10 @@ export function App() {
       <header className="topbar">
         <h1>OES — Common Operating Picture</h1>
         <span className="sub">Firefighting Resource Mobilization Platform · Justice County demo</span>
-        <ThemeToggle />
+        <div className="topbar-actions">
+          <DemoMenu />
+          <ThemeToggle />
+        </div>
       </header>
       <div className="shell">
         <NavRail active={active} onSelect={setActive} />
