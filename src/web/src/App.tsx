@@ -13,6 +13,7 @@ import { OrdersView } from "./OrdersView";
 import { Placeholder } from "./Placeholder";
 import { ThemeToggle } from "./ThemeToggle";
 import { DemoMenu } from "./DemoMenu";
+import { UserMenu } from "./UserMenu";
 import "./styles.css";
 
 export function App() {
@@ -40,6 +41,7 @@ export function App() {
         <div className="topbar-actions">
           <DemoMenu />
           <ThemeToggle />
+          <UserMenu />
         </div>
       </header>
       <div className="shell">
