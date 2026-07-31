@@ -44,3 +44,7 @@ data/**/*.tmp
 # Compiled Bicep output
 infra/*.json
 !infra/main.parameters.json
+
+# local deploy staging artifacts
+.deploy_stage/
+.deploy_api.zip

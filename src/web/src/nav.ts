@@ -41,12 +41,6 @@ export const NAV: NavItem[] = [
     blurb: "Four-tier escalation from local mutual aid to statewide, with rationale at each step.",
   },
   {
-    id: "assistant",
-    label: "Assistant",
-    stories: ["US-18"],
-    blurb: "Conversational assistant grounded in the operating picture and seeded data.",
-  },
-  {
     id: "autonomy",
     label: "Autonomy & Approvals",
     stories: ["US-20", "US-21"],

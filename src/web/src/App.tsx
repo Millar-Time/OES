@@ -11,6 +11,7 @@ import { CopView } from "./CopView";
 import { InitialResponseView } from "./InitialResponseView";
 import { OrdersView } from "./OrdersView";
 import { TraceView } from "./TraceView";
+import { AssistantDock } from "./AssistantView";
 import { Placeholder } from "./Placeholder";
 import { ThemeToggle } from "./ThemeToggle";
 import { DemoMenu } from "./DemoMenu";
@@ -51,6 +52,7 @@ export function App() {
         <NavRail active={active} onSelect={setActive} />
         <main className="content">{renderView()}</main>
       </div>
+      <AssistantDock />
     </div>
   );
 }

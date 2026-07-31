@@ -17,6 +17,7 @@ from .tools import inventory as _inventory  # noqa: F401
 from .tools import recommend as _recommend  # noqa: F401
 from .tools import drawdown as _drawdown  # noqa: F401
 from .tools import orders as _orders  # noqa: F401
+from .tools import assistant as _assistant  # noqa: F401
 from .ledger import ledger
 
 
@@ -83,6 +84,10 @@ class MissionOrchestrator:
     async def trace(self) -> dict[str, Any]:
         """US-24: the ordered, tamper-evident decision-trace ledger."""
         return {"entries": ledger.entries(), "integrity": ledger.verify()}
+
+    async def assistant(self, question: str) -> dict[str, Any]:
+        """US-18: answer a natural-language question grounded in live data."""
+        return await self.tools.get("assistant_answer").run(question=question)
 
     async def handle(self, mission: Mission) -> dict[str, Any]:
         cop = await self.common_operating_picture()

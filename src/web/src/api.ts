@@ -148,6 +148,20 @@ export interface DecisionResult {
 
 export type DecisionKind = "approve" | "override" | "modify";
 
+export interface AssistantFact {
+  label: string;
+  value: string;
+}
+
+export interface AssistantAnswer {
+  question: string;
+  intent: string;
+  answer: string;
+  facts: AssistantFact[];
+  sources: string[];
+  suggestions: string[];
+}
+
 // When VITE_API_BASE is set (hosted demo pointing at the standalone App Service
 // API), all /api/* calls are routed there so incident/resources/orders/weather
 // are live. Locally it's empty and the Vite proxy / SWA rewrites take over.
@@ -188,6 +202,7 @@ export const api = {
     note?: string;
     resources?: string[];
   }) => postJSON<DecisionResult>("/api/decisions", body),
+  ask: (question: string) => postJSON<AssistantAnswer>("/api/assistant", { question }),
   async mapsToken(): Promise<MapsToken> {
     // Token endpoint is configurable: on the hosted SWA (Free tier, no MI in
     // built-in functions) it points at a standalone Consumption Function App;

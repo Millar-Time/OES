@@ -56,15 +56,22 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!authConfigured) return;
     (async () => {
-      await msalInstance.initialize();
-      const result = await msalInstance.handleRedirectPromise();
-      const acct = result?.account ?? msalInstance.getActiveAccount() ?? msalInstance.getAllAccounts()[0] ?? null;
-      if (!acct) { setPhase("signedout"); return; }
-      msalInstance.setActiveAccount(acct);
-      setAccount(acct);
-      let ok = isAuthorized(acct);
-      if (!ok && groupOverage(acct)) ok = await checkGroupViaGraph(acct);
-      setPhase(ok ? "authorized" : "denied");
+      try {
+        await msalInstance.initialize();
+        const result = await msalInstance.handleRedirectPromise();
+        const acct = result?.account ?? msalInstance.getActiveAccount() ?? msalInstance.getAllAccounts()[0] ?? null;
+        if (!acct) { setPhase("signedout"); return; }
+        msalInstance.setActiveAccount(acct);
+        setAccount(acct);
+        let ok = isAuthorized(acct);
+        if (!ok && groupOverage(acct)) ok = await checkGroupViaGraph(acct);
+        setPhase(ok ? "authorized" : "denied");
+      } catch (err) {
+        // Never leave the gate stuck on "loading" — fall back to a sign-in
+        // screen so the demo is recoverable, and log the cause.
+        console.error("Auth init failed:", err);
+        setPhase("signedout");
+      }
     })();
   }, []);
 

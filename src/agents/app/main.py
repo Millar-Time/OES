@@ -99,6 +99,16 @@ async def trace() -> dict[str, Any]:
     return await orchestrator.trace()
 
 
+class AssistantRequest(BaseModel):
+    question: str
+
+
+@app.post("/api/assistant")
+async def assistant(req: AssistantRequest) -> dict[str, Any]:
+    """US-18 — grounded conversational assistant over the live operating picture."""
+    return await orchestrator.assistant(question=req.question)
+
+
 @app.get("/api/maps/token")
 async def maps_token() -> JSONResponse:
     result = get_maps_token()
