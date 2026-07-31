@@ -27,10 +27,18 @@ function DrawdownStrip({ areas }: { areas: DrawdownArea[] }) {
   );
 }
 
-function OptionCard({ opt, onSelect, selected }: { opt: OrderOption; onSelect: () => void; selected: boolean }) {
+function OptionCard({ opt, onDecide, decidedKind, busy }: {
+  opt: OrderOption;
+  onDecide: (kind: "approve" | "override") => void;
+  decidedKind: "approve" | "override" | null;
+  busy: boolean;
+}) {
   const breach = opt.drawdown.any_breach;
+  const kind: "approve" | "override" = opt.recommended ? "approve" : "override";
+  const label = opt.recommended ? "Approve order" : `Override & select "${opt.name}"`;
+  const decidedLabel = decidedKind === "approve" ? "✓ Approved & logged" : "✓ Override logged";
   return (
-    <div className={`card ord-card ${opt.recommended ? "ord-rec" : ""} ${selected ? "ord-selected" : ""}`}>
+    <div className={`card ord-card ${opt.recommended ? "ord-rec" : ""} ${decidedKind ? "ord-selected" : ""}`}>
       <div className="card-head">
         <div>
           <span className="ir-eyebrow">Option {opt.rank}{opt.recommended ? " · Recommended" : ""}</span>
@@ -72,25 +80,47 @@ function OptionCard({ opt, onSelect, selected }: { opt: OrderOption; onSelect: (
         <p className="ord-escalate">↑ Local + Region II can't fill the package — escalate to State mutual aid.</p>
       )}
 
-      <button className={`btn ${opt.recommended ? "btn-approve" : ""}`} onClick={onSelect}>
-        {selected ? "✓ Selected" : `Select "${opt.name}"`}
+      <button
+        className={`btn ${opt.recommended ? "btn-approve" : ""}`}
+        disabled={busy || decidedKind !== null}
+        onClick={() => onDecide(kind)}
+      >
+        {decidedKind ? decidedLabel : busy ? "Recording…" : label}
       </button>
     </div>
   );
 }
 
 /** US-06 / US-07 — Ranked resource orders with the drawdown guardrail.
- * The system presents options, protects OA coverage, and recommends the safe
- * order — but the human chooses, and can escalate to State. */
+ * US-21 — the human approves the recommendation or overrides it, and every
+ * decision is written to the immutable decision-trace ledger (US-24). */
 export function OrdersView() {
   const [orders, setOrders] = useState<Orders | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [decided, setDecided] = useState<{ name: string; kind: "approve" | "override"; seq: number } | null>(null);
+  const [busy, setBusy] = useState(false);
   const [escalated, setEscalated] = useState(false);
 
   useEffect(() => {
     api.orders().then(setOrders).catch((e) => setError(String(e)));
   }, []);
+
+  async function handleDecide(opt: OrderOption, kind: "approve" | "override") {
+    if (decided || busy) return;
+    setBusy(true);
+    try {
+      const res = await api.decide({
+        decision: kind,
+        option_name: opt.name,
+        resources: opt.assignments.map((a) => a.id),
+      });
+      setDecided({ name: opt.name, kind, seq: res.entry.seq });
+    } catch (e) {
+      setError(String(e));
+    } finally {
+      setBusy(false);
+    }
+  }
 
   if (error) return <div className="placeholder-view"><div className="card">Error: {error}</div></div>;
   if (!orders) return <div className="placeholder-view"><div className="card">Ranking order options…</div></div>;
@@ -103,7 +133,7 @@ export function OrdersView() {
     <div className="ir-view">
       <div className="ir-banner">
         <div className="ir-banner-main">
-          <span className="ir-eyebrow">Resource orders · US-06 / US-07</span>
+          <span className="ir-eyebrow">Resource orders · US-06 / US-07 / US-21</span>
           <h2>{orders.incident_name}</h2>
           <p className="ir-pkg">Requested package: {pkgSummary}</p>
           <p className="muted">{orders.recommended_rationale}</p>
@@ -115,19 +145,22 @@ export function OrdersView() {
           <OptionCard
             key={opt.name}
             opt={opt}
-            selected={selected === opt.name}
-            onSelect={() => setSelected(opt.name)}
+            busy={busy}
+            decidedKind={decided && decided.name === opt.name ? decided.kind : null}
+            onDecide={(kind) => handleDecide(opt, kind)}
           />
         ))}
       </div>
 
       <div className="ir-actions">
-        {selected ? (
+        {decided ? (
           <span className="ir-decision">
-            Order recorded: <b>{selected}</b> (demo — trace ledger lands in US-24)
+            {decided.kind === "approve" ? "Approved" : "Overrode recommendation →"} <b>{decided.name}</b>
+            {" "}· written to the immutable decision trace as entry #{decided.seq}. Open the
+            {" "}<b>Decision Trace</b> tab to view the audited ledger.
           </span>
         ) : (
-          <span className="muted">Select an order option above to proceed.</span>
+          <span className="muted">Approve the recommended order — or override it. Every decision is logged.</span>
         )}
         {escalated ? (
           <span className="ir-decision">↑ Escalation to State mutual aid requested (US-10).</span>

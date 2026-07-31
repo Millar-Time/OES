@@ -389,3 +389,40 @@ body {
 }
 .user-info { padding: 8px 10px; }
 .user-name { font-size: 13px; font-weight: 600; }
+
+/* US-24 Decision Trace view */
+.btn-sm { padding: 4px 10px; font-size: 12px; }
+.trace-integrity { display: flex; align-items: center; gap: 10px; }
+.trace-list { display: flex; flex-direction: column; gap: 0; position: relative; }
+.trace-entry {
+  display: grid; grid-template-columns: 44px 1fr; gap: 12px;
+  padding: 14px 4px; border-bottom: 1px solid var(--line);
+}
+.trace-entry:last-child { border-bottom: none; }
+.trace-seq {
+  font-family: ui-monospace, Consolas, monospace; font-size: 13px; font-weight: 700;
+  color: var(--muted); text-align: right; padding-top: 2px;
+}
+.trace-body { display: flex; flex-direction: column; gap: 4px; }
+.trace-line1 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.act-chip {
+  font-family: ui-monospace, Consolas, monospace; font-size: 11px; font-weight: 600;
+  padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+}
+.act-detect { color: var(--accent); border-color: var(--accent); }
+.act-weather { color: #d29922; border-color: #d29922; }
+.act-reco { color: #3fb950; border-color: #3fb950; }
+.act-approve { color: #fff; background: #2e7d32; border-color: #2e7d32; }
+.act-override { color: #fff; background: #c62828; border-color: #c62828; }
+.act-modify { color: #fff; background: #ef6c00; border-color: #ef6c00; }
+.trace-target { font-weight: 600; font-size: 14px; }
+.trace-ts { margin-left: auto; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.trace-actor { font-size: 12px; color: var(--muted); }
+.trace-rationale { margin: 2px 0; font-size: 13px; line-height: 1.45; }
+.trace-details { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+.trace-kv b { color: var(--text); font-weight: 600; }
+.trace-hashes {
+  display: flex; align-items: center; gap: 8px; margin-top: 4px;
+  font-family: ui-monospace, Consolas, monospace; font-size: 11px; color: var(--muted);
+}
+.trace-arrow { opacity: .6; }

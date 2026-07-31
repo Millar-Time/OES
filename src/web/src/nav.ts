@@ -56,6 +56,7 @@ export const NAV: NavItem[] = [
     id: "trace",
     label: "Decision Trace",
     stories: ["US-23", "US-24"],
+    live: true,
     blurb: "Explainable recommendations backed by an immutable, append-only decision ledger.",
   },
   {

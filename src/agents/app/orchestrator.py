@@ -17,6 +17,7 @@ from .tools import inventory as _inventory  # noqa: F401
 from .tools import recommend as _recommend  # noqa: F401
 from .tools import drawdown as _drawdown  # noqa: F401
 from .tools import orders as _orders  # noqa: F401
+from .ledger import ledger
 
 
 @dataclass
@@ -51,6 +52,37 @@ class MissionOrchestrator:
     async def drawdown(self, committed_ids: list[str] | None = None) -> dict[str, Any]:
         """US-07: assess remaining OA coverage for a committed set."""
         return await self.tools.get("assess_drawdown").run(committed_ids=committed_ids or [])
+
+    async def record_decision(
+        self,
+        *,
+        decision: str,
+        option_name: str,
+        actor: str,
+        note: str | None = None,
+        resources: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """US-21: log a human approve / override / modify against the ledger."""
+        verb = {"approve": "approved", "override": "overrode", "modify": "modified"}.get(
+            decision, decision
+        )
+        rationale = note or (
+            f"{actor} {verb} the '{option_name}' resource order."
+            if decision == "approve"
+            else f"{actor} {verb} the recommendation and selected '{option_name}'."
+        )
+        entry = ledger.record(
+            actor=actor,
+            action=f"order.{decision}",
+            target=option_name,
+            rationale=rationale,
+            details={"resources": resources or [], "resource_count": len(resources or [])},
+        )
+        return {"ok": True, "entry": entry.__dict__}
+
+    async def trace(self) -> dict[str, Any]:
+        """US-24: the ordered, tamper-evident decision-trace ledger."""
+        return {"entries": ledger.entries(), "integrity": ledger.verify()}
 
     async def handle(self, mission: Mission) -> dict[str, Any]:
         cop = await self.common_operating_picture()

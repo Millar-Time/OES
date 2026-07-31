@@ -124,6 +124,30 @@ export interface Orders {
   recommended_rationale: string;
 }
 
+export interface TraceEntry {
+  seq: number;
+  ts: string;
+  actor: string;
+  action: string;
+  target: string;
+  rationale: string;
+  details: Record<string, unknown>;
+  prev_hash: string;
+  entry_hash: string;
+}
+
+export interface Trace {
+  entries: TraceEntry[];
+  integrity: { intact: boolean; broken_at: number | null; count: number };
+}
+
+export interface DecisionResult {
+  ok: boolean;
+  entry: TraceEntry;
+}
+
+export type DecisionKind = "approve" | "override" | "modify";
+
 // When VITE_API_BASE is set (hosted demo pointing at the standalone App Service
 // API), all /api/* calls are routed there so incident/resources/orders/weather
 // are live. Locally it's empty and the Vite proxy / SWA rewrites take over.
@@ -139,6 +163,16 @@ async function getJSON<T>(url: string): Promise<T> {
   return (await res.json()) as T;
 }
 
+async function postJSON<T>(url: string, body: unknown): Promise<T> {
+  const res = await fetch(apiUrl(url), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`${url} -> ${res.status}`);
+  return (await res.json()) as T;
+}
+
 export const api = {
   incident: () => getJSON<Incident>("/api/incident"),
   resources: (oa?: string) =>
@@ -146,6 +180,14 @@ export const api = {
   weather: () => getJSON<Weather>("/api/weather"),
   initialResponse: () => getJSON<Recommendation>("/api/recommendation/initial"),
   orders: () => getJSON<Orders>("/api/orders"),
+  trace: () => getJSON<Trace>("/api/trace"),
+  decide: (body: {
+    decision: DecisionKind;
+    option_name: string;
+    actor?: string;
+    note?: string;
+    resources?: string[];
+  }) => postJSON<DecisionResult>("/api/decisions", body),
   async mapsToken(): Promise<MapsToken> {
     // Token endpoint is configurable: on the hosted SWA (Free tier, no MI in
     // built-in functions) it points at a standalone Consumption Function App;

@@ -10,6 +10,7 @@ import { NavRail } from "./NavRail";
 import { CopView } from "./CopView";
 import { InitialResponseView } from "./InitialResponseView";
 import { OrdersView } from "./OrdersView";
+import { TraceView } from "./TraceView";
 import { Placeholder } from "./Placeholder";
 import { ThemeToggle } from "./ThemeToggle";
 import { DemoMenu } from "./DemoMenu";
@@ -28,6 +29,8 @@ export function App() {
         return <InitialResponseView />;
       case "orders":
         return <OrdersView />;
+      case "trace":
+        return <TraceView />;
       default:
         return <Placeholder item={item} />;
     }

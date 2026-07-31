@@ -13,6 +13,7 @@ from typing import Any
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 
 from .config import settings
 from .maps import get_maps_token
@@ -70,6 +71,32 @@ async def drawdown(
 ) -> dict[str, Any]:
     ids = [i for i in (committed_ids or "").split(",") if i]
     return await orchestrator.drawdown(committed_ids=ids)
+
+
+class DecisionRequest(BaseModel):
+    decision: str  # approve | override | modify
+    option_name: str
+    actor: str = "Tom Brills · OA Coordinator"
+    note: str | None = None
+    resources: list[str] | None = None
+
+
+@app.post("/api/decisions")
+async def create_decision(req: DecisionRequest) -> dict[str, Any]:
+    """US-21 — log a human approve/override/modify to the decision-trace ledger."""
+    return await orchestrator.record_decision(
+        decision=req.decision,
+        option_name=req.option_name,
+        actor=req.actor,
+        note=req.note,
+        resources=req.resources,
+    )
+
+
+@app.get("/api/trace")
+async def trace() -> dict[str, Any]:
+    """US-24 — the ordered, tamper-evident decision-trace ledger."""
+    return await orchestrator.trace()
 
 
 @app.get("/api/maps/token")
